@@ -33,45 +33,47 @@ services:
     networks:
       jeepay:
         ipv4_address: 172.20.0.10
-  #activemq:
-  #  build:
-  #    context: ./docker/activemq
-  #    dockerfile: Dockerfile
-  #  hostname: activemq
-  #  container_name: jeepay-activemq
-  #  image: jeepay-activemq:latest
-  #  ports: #- "1883:1883"
-  #    #- "5672:5672"
-  #    - "8161:8161"
-  #    #- "61613:61613"
-  #    #- "61614:61614"
-  #    - "61616:61616"
-  #  volumes:
-  #    - activemq:/opt/activemq
-  #    - ./docker/activemq/activemq.xml:/opt/activemq/conf/activemq.xml
-  #  networks:
-  #    jeepay:
-  #      ipv4_address: 172.20.0.11
-  # RabbitMQ (扩展额外延迟插件)
-  rabbitmq:
+  activemq:
     build:
-      context: ./docker/rabbitmq
+      context: ./docker/activemq
       dockerfile: Dockerfile
-    hostname: rabbitmq
-    container_name: jeepay-rabbitmq
-    image: jeepay-rabbitmq:latest
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    environment:
-      RABBITMQ_DEFAULT_USER: 'admin'
-      RABBITMQ_DEFAULT_PASS: 'admin'
-      RABBITMQ_DEFAULT_VHOST: 'jeepay'
+    hostname: activemq
+    container_name: jeepay-activemq
+    image: jeepay-activemq:latest
+    ports: #- "1883:1883"
+      #- "5672:5672"
+      - "8161:8161"
+      #- "61613:61613"
+      #- "61614:61614"
+      - "61616:61616"
     volumes:
-      - rabbitmq:/var/lib/rabbitmq
+      - activemq:/opt/activemq
+      - ./docker/activemq/activemq.xml:/opt/activemq/conf/activemq.xml
     networks:
       jeepay:
         ipv4_address: 172.20.0.11
+  # 扩展额外延迟插件的 RabbitMQ
+  #rabbitmq:
+  #  build:
+  #    context: ./docker/rabbitmq
+  #    dockerfile: Dockerfile
+  #  hostname: rabbitmq
+  #  container_name: jeepay-rabbitmq
+  #  image: jeepay-rabbitmq:latest
+  #  ports:
+  #    - "15672:15672"
+  #    - "4369:4369"
+  #    - "5672:5672"
+  #    - "25672:25672"
+  #  environment:
+  #    RABBITMQ_DEFAULT_USER: 'admin'
+  #    RABBITMQ_DEFAULT_PASS: 'admin'
+  #    RABBITMQ_DEFAULT_VHOST: 'jeepay'
+  #  volumes:
+  #    - rabbitmq:/var/lib/rabbitmq
+  #  networks:
+  #    jeepay:
+  #      ipv4_address: 172.20.0.11
   # 使用 activemq 如有需要请修改 docker/activemq.xml 下相关配置
   #rocketmq-namesrv:
   #  image: apache/rocketmq:4.9.3
@@ -129,8 +131,8 @@ services:
     depends_on:
       - mysql
       - redis
-      - rabbitmq
-      # - activemq
+      - activemq
+      # - rabbitmq
       # - rocketmq-broker
     networks:
       jeepay:
@@ -153,8 +155,8 @@ services:
     depends_on:
       - mysql
       - redis
-      - rabbitmq
-      # - activemq
+      - activemq
+      # - rabbitmq
       # - rocketmq-broker
     networks:
       jeepay:
@@ -177,8 +179,8 @@ services:
     depends_on:
       - mysql
       - redis
-      - rabbitmq
-      # - activemq
+      - activemq
+      # - rabbitmq
       # - rocketmq-broker
     networks:
       jeepay:
@@ -268,5 +270,5 @@ networks:
 volumes:
   mysql:
   redis:
-  #activemq:
-  rabbitmq:
+  activemq:
+#  rabbitmq:
