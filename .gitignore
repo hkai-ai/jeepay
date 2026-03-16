@@ -57,3 +57,5 @@ unpackage/
 docker/rocketmq/broker/logs/
 docker/rocketmq/broker/store/
 docker/rocketmq/namesrv/
+
+.env
