@@ -8,6 +8,9 @@ FROM maven:3.9-eclipse-temurin-17 AS builder
 
 WORKDIR /build
 
+# 配置 Maven 阿里云镜像加速
+COPY docker/maven-settings.xml /root/.m2/settings.xml
+
 # 先复制 pom.xml 利用 Docker 缓存加速依赖下载
 COPY pom.xml .
 COPY jeepay-core/pom.xml jeepay-core/pom.xml
