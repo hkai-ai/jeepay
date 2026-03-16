@@ -1,0 +1,38 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+.claude/
+
+# Git
+.git/
+.gitignore
+.gitmodules
+
+# Build output (will be built inside container)
+**/target/
+
+# Logs
+logs/
+**/logs/
+*.log
+
+# Docker
+docker-compose.yml
+Dockerfile
+**/Dockerfile
+
+# Documentation
+docs/
+README.md
+*.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config (mounted at runtime, not baked into image)
+# conf/
+
+# Frontend (separate build)
+jeepay-ui/
